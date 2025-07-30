@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Photo to Audio</title>
+  <link rel="stylesheet" href="style.css">
+ <script src="script.js"></script>
+</head>
+
+<body>
+  <!-- Main Title -->
+  <h1 class="main-title">Click to Play</h1>
+  
+  <!-- Upload Section -->
+  <div class="upload-section">
+    <h2>Upload Your Photo and Audio</h2>
+    <div class="upload-controls">
+      <div class="file-input-group">
+        <label for="photoUpload">Choose Photo:</label>
+        <input type="file" id="photoUpload" accept="image/*">
+      </div>
+      <div class="file-input-group">
+        <label for="audioUpload">Choose Audio:</label>
+        <input type="file" id="audioUpload" accept="audio/*">
+      </div>
+      <button id="uploadBtn" onclick="handleUpload()">Add Photo & Audio</button>
+    </div>
+  </div>
+
+  <!-- Container for uploaded content -->
+  <div id="uploadedContent" class="uploaded-content"></div>
+
+</body>
+</html>
+
