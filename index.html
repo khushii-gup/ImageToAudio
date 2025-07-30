@@ -30,6 +30,31 @@
   <!-- Container for uploaded content -->
   <div id="uploadedContent" class="uploaded-content"></div>
 
+  <img id="YesImage" src="tick.png" alt="Yes">
+  <img id="NoImage" src="cross.jpg" alt="No">
+  <audio id="NoAudio" src="No.mp3"></audio>
+  <audio id="YesAudio" src="Yes.mp3"></audio>
+
+ <script>
+ const imageYes = document.getElementById("YesImage");
+    const audioYes = document.getElementById("YesAudio");
+
+    // Add click event to image
+    imageYes.onclick = function() {
+      audioYes.play();
+    };
+
+    const imageNo = document.getElementById("NoImage");
+    const audioNo = document.getElementById("NoAudio"); 
+
+    // Add click event to image
+    imageNo.onclick = function() {
+      audioNo.play();
+    };
+
+  
+  </script>
+  
 </body>
 </html>
 
