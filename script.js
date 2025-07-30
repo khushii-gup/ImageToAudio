@@ -34,9 +34,9 @@ function handleUpload() {
       <p><strong>Photo:</strong> ${photoFile.name}</p>
       <p><strong>Audio:</strong> ${audioFile.name}</p>
     </div>
-    <img src="${photoURL}" id="${imageId}" alt="Uploaded image" style="width:200px;cursor:pointer;border:2px solid #ccc;margin:10px;">
+    <img src="${photoURL}" id="${imageId}" alt="Uploaded image" class="uploaded-large-image">
     <audio id="${audioId}" src="${audioURL}" preload="auto"></audio>
-    <button onclick="removeUploadedItem(this)" style="margin-left:10px;">Remove</button>
+    <button onclick="removeUploadedItem(this)" class="remove-btn">Remove</button>
   `;
   
   // Add to the uploaded content container

@@ -11,6 +11,15 @@
   <!-- Main Title -->
   <h1 class="main-title">Click to Play</h1>
   
+  <!-- Static Yes/No Images -->
+  <div class="static-images">
+    <img id="YesImage" src="tick.png" alt="Yes">
+    <img id="NoImage" src="cross.jpg" alt="No">
+  </div>
+  
+  <!-- Container for uploaded content - Above upload box -->
+  <div id="uploadedContent" class="uploaded-content"></div>
+  
   <!-- Upload Section -->
   <div class="upload-section">
     <h2>Upload Your Photo and Audio</h2>
@@ -27,16 +36,11 @@
     </div>
   </div>
 
-  <!-- Container for uploaded content -->
-  <div id="uploadedContent" class="uploaded-content"></div>
-
-  <img id="YesImage" src="tick.png" alt="Yes">
-  <img id="NoImage" src="cross.jpg" alt="No">
   <audio id="NoAudio" src="No.mp3"></audio>
   <audio id="YesAudio" src="Yes.mp3"></audio>
 
  <script>
- const imageYes = document.getElementById("YesImage");
+    const imageYes = document.getElementById("YesImage");
     const audioYes = document.getElementById("YesAudio");
 
     // Add click event to image

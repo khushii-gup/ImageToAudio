@@ -4,7 +4,7 @@ body {
   padding: 20px;
   display: flex;
   justify-content: center;
-  align-items: flex-start;
+  align-items: center;
   min-height: 100vh;
   flex-direction: column;
   background-color: #f4f4f4;
@@ -20,6 +20,7 @@ body {
   text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
   width: 100%;
   max-width: 600px;
+  align-self: center;
 }
 
 .upload-section {
@@ -30,6 +31,7 @@ body {
   margin-bottom: 20px;
   width: 100%;
   max-width: 600px;
+  align-self: center;
 }
 
 .upload-section h2 {
@@ -78,37 +80,63 @@ body {
 
 .uploaded-content {
   width: 100%;
-  max-width: 600px;
+  max-width: 80vw;
+  align-self: center;
+  margin-bottom: 20px;
 }
 
 .uploaded-item {
   background: white;
-  padding: 15px;
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-  margin-bottom: 15px;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  margin-bottom: 20px;
+  text-align: center;
 }
 
-.item-info {
-  margin-bottom: 10px;
+.uploaded-large-image {
+  width: 80vw;
+  max-width: 800px;
+  height: auto;
+  border: 4px solid #007bff;
+  border-radius: 12px;
+  cursor: pointer;
+  margin: 15px 0;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.15);
 }
 
-.item-info p {
-  margin: 5px 0;
-  color: #666;
+.uploaded-large-image:hover {
+  transform: scale(1.02);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.25);
+  border-color: #0056b3;
 }
 
-.uploaded-item button {
+.remove-btn {
   background-color: #dc3545;
   color: white;
   border: none;
-  padding: 8px 16px;
-  border-radius: 4px;
+  padding: 10px 20px;
+  border-radius: 6px;
   cursor: pointer;
+  font-size: 14px;
+  margin-top: 15px;
+  transition: background-color 0.3s ease;
 }
 
-.uploaded-item button:hover {
+.remove-btn:hover {
   background-color: #c82333;
+}
+
+.item-info {
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.item-info p {
+  margin: 8px 0;
+  color: #666;
+  font-size: 16px;
 }
 
 img {
@@ -133,4 +161,41 @@ img:hover {
 .uploaded-item img:hover {
   border-color: #0056b3;
   box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+}
+
+/* Styles for the Yes/No images */
+#YesImage, #NoImage {
+  display: block;
+  margin: 20px auto;
+  width: 35vw;
+  max-width: 400px;
+  min-width: 200px;
+  height: auto;
+  border: 4px solid #28a745;
+  border-radius: 12px;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+#YesImage:hover, #NoImage:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+}
+
+#NoImage {
+  border-color: #dc3545;
+}
+
+/* Container for Yes/No images */
+.static-images {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4vw;
+  margin: 30px 0;
+  flex-wrap: wrap;
+  width: 100%;
+  max-width: 80vw;
+  margin-left: auto;
+  margin-right: auto;
 }
