@@ -69,3 +69,34 @@ function removeUploadedItem(button) {
   // Remove the container
   container.remove();
 }
+
+function addClickSound(imageId, audioId) {
+  const image = document.getElementById(imageId);
+  const audio = document.getElementById(audioId);
+  
+  if (image && audio) {
+    image.addEventListener('click', function() {
+      // Reset the audio to the beginning in case it was already playing
+      audio.currentTime = 0;
+      
+      // Play the audio
+      audio.play().catch(function(error) {
+        console.error('Error playing audio:', error);
+        alert('Error playing audio. Please check if the audio file is valid.');
+      });
+      
+      console.log(`Playing audio for image: ${imageId}`);
+    });
+    
+    // Add visual feedback on hover
+    image.addEventListener('mouseenter', function() {
+      image.style.opacity = '0.8';
+      image.style.transform = 'scale(1.05)';
+    });
+    
+    image.addEventListener('mouseleave', function() {
+      image.style.opacity = '1';
+      image.style.transform = 'scale(1)';
+    });
+  }
+}

@@ -114,4 +114,23 @@ body {
 img {
   width: 200px;
   margin-bottom: 20px;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+img:hover {
+  opacity: 0.8;
+  transform: scale(1.05);
+}
+
+/* Visual indication that image is clickable */
+.uploaded-item img {
+  border: 2px solid #007bff;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.uploaded-item img:hover {
+  border-color: #0056b3;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.2);
 }
