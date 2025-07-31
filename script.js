@@ -1,6 +1,7 @@
 let uploadCounter = 0;
+const SERVER_URL = 'https://imagetoaudiouploader.onrender.com'; // Replace with your actual Render URL
 
-function handleUpload() {
+async function handleUpload() {
   const photoInput = document.getElementById('photoUpload');
   const audioInput = document.getElementById('audioUpload');
   
@@ -17,57 +18,84 @@ function handleUpload() {
   const photoFile = photoInput.files[0];
   const audioFile = audioInput.files[0];
   
-  // Create unique IDs for this upload
-  uploadCounter++;
-  const imageId = `uploadedImage${uploadCounter}`;
-  const audioId = `uploadedAudio${uploadCounter}`;
+  // Show loading state
+  const uploadBtn = document.getElementById('uploadBtn');
+  const originalText = uploadBtn.textContent;
+  uploadBtn.textContent = 'Uploading...';
+  uploadBtn.disabled = true;
   
-  // Create URL objects for the files
-  const photoURL = URL.createObjectURL(photoFile);
-  const audioURL = URL.createObjectURL(audioFile);
-  
-  // Create the HTML elements
-  const container = document.createElement('div');
-  container.className = 'uploaded-item';
-  container.innerHTML = `
-    <div class="item-info">
-      <p><strong>Photo:</strong> ${photoFile.name}</p>
-      <p><strong>Audio:</strong> ${audioFile.name}</p>
-    </div>
-    <img src="${photoURL}" id="${imageId}" alt="Uploaded image" class="uploaded-large-image">
-    <audio id="${audioId}" src="${audioURL}" preload="auto"></audio>
-    <button onclick="removeUploadedItem(this)" class="remove-btn">Remove</button>
-  `;
-  
-  // Add to the uploaded content container
-  document.getElementById('uploadedContent').appendChild(container);
-  
-  // Add click functionality to the new image
-  addClickSound(imageId, audioId);
-  
-  // Clear the input fields
-  photoInput.value = '';
-  audioInput.value = '';
-  
-  console.log(`Added uploaded content with IDs: ${imageId}, ${audioId}`);
+  try {
+    // Create FormData to send files to server
+    const formData = new FormData();
+    formData.append('photo', photoFile);
+    formData.append('audio', audioFile);
+    
+    // Upload to server
+    const response = await fetch(`${SERVER_URL}/upload`, {
+      method: 'POST',
+      body: formData
+    });
+    
+    if (!response.ok) {
+      throw new Error(`Upload failed: ${response.statusText}`);
+    }
+    
+    const result = await response.json();
+    
+    // Create unique IDs for this upload
+    uploadCounter++;
+    const imageId = `uploadedImage${uploadCounter}`;
+    const audioId = `uploadedAudio${uploadCounter}`;
+    
+    // Use server URLs instead of blob URLs
+    const photoURL = `${SERVER_URL}${result.photoUrl}`;
+    const audioURL = `${SERVER_URL}${result.audioUrl}`;
+    
+    // Create the HTML elements
+    const container = document.createElement('div');
+    container.className = 'uploaded-item';
+    container.innerHTML = `
+      <div class="item-info">
+        <p><strong>Photo:</strong> ${photoFile.name}</p>
+        <p><strong>Audio:</strong> ${audioFile.name}</p>
+      </div>
+      <img src="${photoURL}" id="${imageId}" alt="Uploaded image" class="uploaded-large-image">
+      <audio id="${audioId}" src="${audioURL}" preload="auto"></audio>
+      <button onclick="removeUploadedItem(this)" class="remove-btn">Remove</button>
+    `;
+    
+    // Add to the uploaded content container
+    document.getElementById('uploadedContent').appendChild(container);
+    
+    // Add click functionality to the new image
+    addClickSound(imageId, audioId);
+    
+    // Clear the input fields
+    photoInput.value = '';
+    audioInput.value = '';
+    
+    console.log(`Added uploaded content with IDs: ${imageId}, ${audioId}`);
+    console.log(`Photo URL: ${photoURL}`);
+    console.log(`Audio URL: ${audioURL}`);
+    
+  } catch (error) {
+    console.error('Upload error:', error);
+    alert(`Upload failed: ${error.message}`);
+  } finally {
+    // Reset button state
+    uploadBtn.textContent = originalText;
+    uploadBtn.disabled = false;
+  }
 }
 
 function removeUploadedItem(button) {
   const container = button.parentElement;
   
-  // Clean up object URLs to prevent memory leaks
-  const img = container.querySelector('img');
-  const audio = container.querySelector('audio');
-  
-  if (img && img.src.startsWith('blob:')) {
-    URL.revokeObjectURL(img.src);
-  }
-  if (audio && audio.src.startsWith('blob:')) {
-    URL.revokeObjectURL(audio.src);
-  }
-  
-  // Remove the container
+  // Simply remove the container since files are now stored on server
+  // No need to clean up blob URLs anymore
   container.remove();
+  
+  console.log('Removed uploaded item from display');
 }
 
 function addClickSound(imageId, audioId) {
